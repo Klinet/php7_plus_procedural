@@ -3,7 +3,7 @@ define("ADMIN_EMAIL", "akali.klinet@gmail.com");
 define("USER_IMG_DIR", "userimg");
 define("UPLOAD_MAX_FILESIZE", 10485760);
 
-define("URL", "http://localhost:8081/");
+define("URL", "http://localhost:8081/php7+/");
 define("DOMAIN", "http://localhost:8081");
 define("DB_HOST", "localhost");
 define("DB_USER", "root");
