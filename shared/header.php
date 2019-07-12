@@ -5,29 +5,23 @@ $menu_items = array(
 );
 include_once 'includes/init.php';
 ?>
-    <!DOCTYPE html>
-    <html lang="hu">
-    <head>
-        <title><?php echo seo($menu_items, SEO_TITLE); ?></title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="<?php echo seo($menu_items, SEO_DESCRIPTION); ?>">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <title><?php echo seo($menu_items, SEO_TITLE); ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<?php echo seo($menu_items, SEO_DESCRIPTION); ?>">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 <body>
-
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.php"></a>
-                </div>
+     <header>
+         <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="index.php"><img src="http://honlap.keszites.info/assets/img/logos/logo_sm.jpg" alt="" width="120"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="navbar-nav mr-auto">
 
@@ -44,8 +38,8 @@ include_once 'includes/init.php';
                         if (!logged_in()) {
                             if (pageName() !== "signup.php" && pageName() !== "forg_passwd.php" && pageName() !== "profile_activate.php") {
                                 ?>
-                                <a class="btn btn-info" data-toggle="modal" data-target="#loginModal">Bejelentkezés</a>
-                                <a class="btn btn-success" href="pages/signup.php">Regisztráció</a>
+                                <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#loginModal" data-whatever="@loginModal">Bejelentkezés</button>
+                                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#signUpModal" data-whatever="@signUpModal">Regisztráció</button>
                                 <?php
                             }
                         } else {
@@ -76,6 +70,7 @@ include_once 'includes/init.php';
                         ?>
                     </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
     </header>
+<!--/body-- in footer -->
