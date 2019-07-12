@@ -3,12 +3,14 @@ define("ADMIN_EMAIL", "akali.klinet@gmail.com");
 define("USER_IMG_DIR", "userimg");
 define("UPLOAD_MAX_FILESIZE", 10485760);
 
-define("URL", "http://php7-plus.keszites.info/");
-define("DOMAIN", "http://php7-plus.keszites.info");
+define("URL", "http://localhost:8081/");
+define("DOMAIN", "http://localhost:8081");
 define("DB_HOST", "localhost");
-define("DB_USER", "php7_keszites_info");
-define("DB_PASSWORD", "yLZQ4MKNdAvLrHqB");
+define("DB_USER", "root");
+define("DB_PASSWORD", "");
 define("DB_NAME", "php7_keszites_info");
+
+define("VIEW_PATH", "../views/");
 
 define("SEO_TITLE", 2);
 define("SEO_DESCRIPTION", 3);
