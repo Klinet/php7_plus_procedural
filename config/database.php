@@ -1,11 +1,14 @@
 <?php
-#region DB conn
-require 'constants.php';
 
-$dbc = mysqli_connect(DB_HOST,
+$db_connect = mysqli_connect(DB_HOST,
     DB_USER,
     DB_PASSWORD,
     DB_NAME);
-mysqli_query($dbc, "SET NAMES utf8");
+mysqli_query($db_connect, "SET NAMES utf8");
 
-#endregion
+global $db_connect;
+
+if (mysqli_connect_errno())
+{
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}

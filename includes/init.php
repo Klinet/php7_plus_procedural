@@ -1,10 +1,11 @@
 <?php
-require 'config/constants.php';
-require 'functions/router.php';
-require 'functions/hash.php';
-require 'functions/images.php';
-require 'functions/mails.php';
-require 'functions/path.php';
-require 'functions/tags.php';
+include_once __DIR__ . '/../config/constants.php';
+include_once  __DIR__ . '/../config/database.php';
+include_once  __DIR__ . '/../functions/router.php';
+include_once  __DIR__ . '/../functions/hash.php';
+include_once  __DIR__ . '/../functions/images.php';
+include_once  __DIR__ . '/../functions/mails.php';
+include_once  __DIR__ . '/../functions/path.php';
+include_once  __DIR__ . '/../functions/tags.php';
 
 //todo create DB conn

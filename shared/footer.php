@@ -16,22 +16,23 @@ if (!logged_in() && pageName() !== VIEW_PATH . "signup.php" && pageName() !== VI
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="tesz" method="post" action="/teszt">
+                    <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Emailcím:</label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="E-mail" value="teszt@a.hu"
+                            <input type="email" class="form-control" name="email" id="email" placeholder="E-mail"
+                                    value="<?=random_int(10,100)?>_teszt@a.hu"
                                     autofocus required>
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Jelszó:</label>
-                            <input type="password" class="form-control" name="jelszo" id="jelszo" placeholder="Jelszó" value="123456"
+                            <input type="password" class="form-control" name="jelszo" id="jelszo" placeholder="Jelszó"
+                                    value="123456"
                                     required>
                         </div>
-                    <p class="text-right"><a href="<?= VIEW_PATH ?>elfelejtve.php">Elfelejtettem a jelszavam</a></p>
+                        <p class="text-right"><a href="<?= VIEW_PATH ?>elfelejtve.php">Elfelejtettem a jelszavam</a></p>
                         <div class="modal-footer">
-                            <input type="hidden" name="event" id="event" value="login">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">mégsem</button>
-                            <button type="button" class="btn btn-primary" id="login_button">Belépés</button>
+                            <button type="submit" class="btn btn-primary" id="login_button">Belépés</button>
                         </div>
                     </form>
                 </div>
@@ -53,23 +54,28 @@ if (!logged_in() && pageName() !== VIEW_PATH . "signup.php" && pageName() !== VI
                     <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Emailcím:</label>
-                            <input type="reg_email" class="form-control" name="reg_email" id="reg_email" placeholder="E-mail"
+                            <input type="reg_email" class="form-control" name="reg_email" id="reg_email" value="reg_email@.hu"
+                                    placeholder="E-mail"
                                     autofocus required>
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Jelszó:</label>
-                            <input type="password" class="form-control" name="reg_jelszo" id="reg_jelszo" placeholder="Jelszó"
+                            <label for="recipient-name" class="col-form-label">Username:</label>
+                            <input type="username" class="form-control" name="username" id="username" value="username1"
+                                    placeholder="Username"
                                     required>
                         </div>
-
-                        <p class="text-right"><a href="<?= VIEW_PATH ?>elfelejtve.php">Elfelejtettem a jelszavam</a></p>
-
+                        <!--A jelszót inkább generáljuk-->
+<!--                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Jelszó:</label>
+                            <input type="password" class="form-control" name="reg_jelszo" id="reg_jelszo"
+                                    placeholder="Jelszó"
+                                    required>
+                        </div>-->
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="event" id="event" value="signup">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">mégsem</button>
-                    <button type="button" class="btn btn-primary">Regisztráció</button>
+                    <button type="submit" class="btn btn-primary" id="signup_button">Regisztráció</button>
                 </div>
             </div>
         </div>
@@ -86,48 +92,63 @@ if (!logged_in() && pageName() !== VIEW_PATH . "signup.php" && pageName() !== VI
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function(){
-        $('#login_button').click(function(){
-            let email = $('#email').val();
-            let password = $('#jelszo').val();
-            let event = $('#event').val();
-            let url = '<?=URL?>';
+    $(document).ready(function () {
+        $(':button').click(function(e) {
+            const id = e.target.id;
+            if (id == 'login_button' || id == 'signup_button') {
 
-            if(email != '' && password != '')
-            {
+                let email = $('#email').val();
+                let reg_email = $('#reg_email').val();
+                let password = "";
+                let username = $('#username').val();
+                let event = "";
+                let form_data = "";
+                let url = '<?=URL?>';
+
+                if (email != '' || reg_email != '') {
+                    if (id == 'login_button') {
+                        if (password != '') {
+                            event = "login";
+                            password = $('#password').val();
+                        }
+                        form_data = {email: email, password: password,event: event};
+                    } else if (id == 'signup_button') {
+                        if (username != '') {
+                        event = "signup";
+                        }
+                        form_data = {reg_email: reg_email, username: username, event: event};
+                    } else {
+                        event = "undefined";
+                    };
+                }
+
                 $.ajax({
                     url: url + "controllers/auth.php",
-                    method:"POST",
-                    data: {email:email, password:password, event:event},
-                    success:function(data)
-                    {
+                    method: "POST",
+                    data: form_data,
+                    success: function (data) {
                         //alert(data);
-                        if(data == 'No')
-                        {
+                        if (data == 'No') {
                             alert("Wrong Data");
-                        }
-                        else
-                        {
+                        } else {
                             $('#loginModal').hide();
                             console.log(data);
                             location.reload();
                         }
                     }
                 });
+
             }
-            else
-            {
-                alert("Both Fields are required");
-            }
+
         });
-        $('#logout').click(function(){
+
+        $('#logout').click(function () {
             let event = "logout";
             $.ajax({
                 url: url + "controllers/action.php",
-                method:"POST",
-                data:{event:event},
-                success:function()
-                {
+                method: "POST",
+                data: {event: event},
+                success: function () {
                     console.log('logged in sess no del');
                     location.reload();
                 }
